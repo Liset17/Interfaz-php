@@ -13,7 +13,7 @@ dist-ssr
 *.local
 
 # Credenciales de produccion (InfinityFree, etc.) - NO subir jamas
-backend/config/db.local.php
+config/db.local.php
 
 # Editor directories and files
 .vscode/*

@@ -1,0 +1,16 @@
+# =============================================================
+# .htaccess del proyecto PHP
+# -------------------------------------------------------------
+# - Define index.php como archivo por defecto al entrar en la
+#   carpeta, por si en tu Apache no lo esta.
+# - Evita listar ficheros si alguien entra en /assets/img/ etc.
+# - Permite que el layout siga funcionando aunque la app se
+#   despliegue en una subcarpeta (C:\xampp\htdocs\php-interfaz\).
+# =============================================================
+
+DirectoryIndex index.php index.html
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+</IfModule>

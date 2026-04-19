@@ -1,0 +1,477 @@
+/* =============================================================
+   ESTILOS GLOBALES - Academia de Teatro (PHP)
+   -------------------------------------------------------------
+   Reune los estilos que antes estaban en style.css + los
+   "scoped" de cada vista .vue. Todas las paginas comparten
+   este unico fichero.
+   ============================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #f3f4f6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ----------------------- NAV SUPERIOR ------------------------ */
+.mask {
+    width: 70px;
+    height: auto;
+}
+
+nav {
+    padding: 25px;
+    background-color: #000000;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1400px;
+}
+
+.nav-brand { display: inline-flex; }
+
+.text-group {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+nav h1 { font-size: 40px; }
+nav p  { font-size: 14px; opacity: 0.8; }
+
+.nav-user {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+}
+.nav-logout-form { margin: 0; }
+.hola { font-size: 0.95rem; opacity: 0.9; }
+.btn-logout {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.35);
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.btn-logout:hover { background: rgba(255,255,255,0.25); }
+
+/* -------------------- HOME / PANEL PRINCIPAL ----------------- */
+main {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+main h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #374151;
+}
+
+.grid {
+    display: grid;
+    gap: 20px;
+}
+
+@media (max-width: 767px) {
+    .grid { grid-template-columns: 1fr; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, border 0.1s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+.card:hover {
+    transform: scale(1.05);
+    border: 2px solid #791c1c;
+}
+.card i {
+    font-size: 60px;
+    color: #140f0f;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+.card h2 { margin-bottom: 10px; color: #111827; }
+.card p  { font-size: 15px; color: rgb(97, 86, 86); }
+
+.btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #dc2626;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+    display: block;
+}
+.btn:hover { background-color: #910909; }
+
+/* -------------------- AUTH (login / register) ---------------- */
+.auth-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f4f4;
+    padding: 20px;
+}
+.auth-card {
+    background: #fff;
+    padding: 32px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 420px;
+}
+.auth-card h1 { margin: 0 0 4px; color: #333; }
+.auth-card .sub { color: #777; margin-bottom: 20px; font-size: 0.9rem; }
+.auth-card label { display: block; margin: 12px 0 4px; color: #444; font-size: 0.9rem; }
+.auth-card input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+.btn-primary {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: #ca2924d2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
+.auth-card .error {
+    margin-top: 14px;
+    padding: 10px;
+    background: #fde8ea;
+    color: #a71f2b;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+.auth-card .foot { margin-top: 18px; text-align: center; color: #666; font-size: 0.9rem; }
+.auth-card .foot a { color: #ca2924d2; text-decoration: none; font-weight: bold; }
+
+/* ---------------------- VISTAS CRUD -------------------------- */
+.view-container {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+.view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #42b983;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+.btn-cerrar {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn-volver {
+    background: #6c757d;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.formulario {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.formulario h3 { margin: 0 0 15px; }
+.form-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.form-group input,
+.form-group select {
+    flex: 1;
+    min-width: 150px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.btn-agregar {
+    background: #ca2924d2;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filtros {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.campo { display: flex; align-items: center; gap: 10px; }
+.campo label { font-weight: bold; }
+.campo input, .campo select {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.resumen {
+    background: #ca2924d2;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.estado {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    background: #f0f0f0;
+}
+.estado.error { background: #fde8ea; color: #a71f2b; }
+
+/* Tablas genericas (alumnos, clases, asistencia) */
+.tabla-container { overflow-x: auto; margin: 20px 0; }
+.tabla-alumnos,
+.tabla-clases,
+.tabla-asistencia {
+    width: 100%;
+    border-collapse: collapse;
+}
+.tabla-alumnos th, .tabla-alumnos td,
+.tabla-clases th,  .tabla-clases td,
+.tabla-asistencia th, .tabla-asistencia td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+.tabla-alumnos th,
+.tabla-clases th,
+.tabla-asistencia th {
+    background: #ca2924d2;
+    color: #fff;
+}
+.tabla-alumnos tr:nth-child(even),
+.tabla-clases tr:nth-child(even),
+.tabla-asistencia tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+.edit-input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.btn-editar   { background: #ffc107; color: #333; }
+.btn-guardar  { background: #007bff; color: #fff; }
+.btn-eliminar { background: #dc3545; color: #fff; }
+.btn-editar, .btn-guardar, .btn-eliminar {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.9rem;
+}
+.acciones-fila { display: flex; gap: 5px; flex-wrap: wrap; }
+.acciones-fila form { display: inline; margin: 0; }
+
+.sin-datos {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+}
+
+/* Checkbox de asistencia */
+.checkbox-cell { text-align: center; }
+.checkbox-cell input { width: 20px; height: 20px; cursor: pointer; }
+.observacion-input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.acciones {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+.btn-marcar-todos,
+.btn-marcar-ninguno,
+.btn-guardar-asist {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.btn-marcar-todos   { background: #28a745; color: #fff; }
+.btn-marcar-ninguno { background: #ffc107; color: #333; }
+.btn-guardar-asist  { background: #007bff; color: #fff; }
+
+/* Grid de grupos (tarjetas) */
+.grupos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+.grupo-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    transition: transform 0.2s;
+}
+.grupo-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+}
+.card-header {
+    background: #ca2924d2;
+    color: #fff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-header h2 { margin: 0; font-size: 1.3rem; }
+.acciones-card { display: flex; gap: 8px; flex-wrap: wrap; }
+.acciones-card form { margin: 0; display: inline; }
+.card-header .btn-editar,
+.card-header .btn-guardar,
+.card-header .btn-eliminar {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+}
+.card-header .btn-editar:hover,
+.card-header .btn-guardar:hover,
+.card-header .btn-eliminar:hover {
+    background: rgba(255,255,255,0.35);
+}
+.card-body { padding: 15px; }
+.info-grupo p { margin: 8px 0; }
+.edit-title {
+    background: rgba(255,255,255,0.9);
+    color: #333;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: none;
+}
+
+.progress-bar {
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 15px 0;
+    height: 28px;
+}
+.progress-fill {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    transition: width 0.3s;
+}
+.progreso-normal { background: #28a745; }
+.progreso-alto   { background: #ffc107; color: #333; }
+.progreso-lleno  { background: #dc3545; }
+
+button:hover { opacity: 0.9; }
+
+/* Flash / mensajes */
+.flash {
+    max-width: 1200px;
+    margin: 15px auto 0;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+.flash-ok    { background: #d4edda; color: #155724; }
+.flash-error { background: #fde8ea; color: #a71f2b; }
+.flash-info  { background: #e2e3ff; color: #2a3a9b; }
+
+/* Responsive extras */
+@media (max-width: 768px) {
+    .grupos-grid { grid-template-columns: 1fr; }
+    .form-group  { flex-direction: column; }
+    .filtros     { flex-direction: column; align-items: stretch; }
+}

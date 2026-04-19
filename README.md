@@ -1,71 +1,89 @@
 # Interfaz Profesor - Version PHP
 
-Version en **PHP + MySQL** del panel de profesores de la Academia de Teatro
-(Proyecto FP Valencia). Es hermana gemela del repo
-[`Interfaz-Profesor`](https://github.com/Liset17/Interfaz-Profesor), que usa
-Supabase; en este caso el backend esta hecho a mano sobre XAMPP.
+Panel de profesores de la Academia de Teatro (Proyecto FP Valencia),
+reescrito en **PHP puro + MySQL**. Esta version elimina Vue y Vite:
+cada pagina es un `.php` que se sirve directamente desde Apache y
+consulta la base de datos con PDO.
+
+Es hermana gemela del repo
+[`Interfaz-Profesor`](https://github.com/Liset17/Interfaz-Profesor),
+que usa Supabase. Aqui el backend esta hecho a mano sobre XAMPP.
 
 ## Estructura
 
 ```
-Interfaz-php/
-|-- backend/           # API PHP + esquema MySQL
-|   |-- api/           # Endpoints (auth + CRUD)
-|   |-- config/        # Conexion PDO + CORS
-|   |-- includes/      # Helpers y auth check
-|   |-- index.php      # Lista los endpoints (GET /)
-|   `-- schema.sql     # Base de datos academia_teatro
-|
-`-- frontend/          # Vue 3 + Vite (UI del profesor)
-    |-- src/
-    |   |-- lib/api.js        # Cliente fetch central
-    |   |-- services/         # auth, alumnos, grupos, clases, asistencia
-    |   |-- router/           # Guards de sesion
-    |   `-- views/            # home, login, register, alumnos, ...
-    `-- vite.config.js        # Proxy /api -> XAMPP
+php-interfaz/
+|-- index.php            # Redirige a login.php o home.php segun sesion
+|-- login.php            # Formulario de login (POST self)
+|-- register.php         # Alta de profesor + login automatico
+|-- logout.php           # Destruye la sesion
+|-- home.php             # Panel principal con las 4 tarjetas
+|-- alumnos.php          # CRUD alumnos (PHP + PDO)
+|-- grupos.php           # CRUD grupos + buscador + progress bar
+|-- clases.php           # CRUD clases
+|-- asistencia.php       # Pasar asistencia (upsert por alumno+fecha)
+|-- schema.sql           # Esquema MySQL
+|-- config/db.php        # Conexion PDO (respeta db.local.php si existe)
+|-- includes/            # bootstrap, auth, header, footer
+`-- assets/              # style.css + imagenes
 ```
+
+No hay `node_modules`, ni `package.json`, ni servidor de desarrollo:
+solo XAMPP (Apache + MySQL).
 
 ## Como empezar
 
-Mira [`XAMPP_SETUP.md`](XAMPP_SETUP.md) para la guia paso a paso
-(instalar XAMPP, crear la BBDD, arrancar backend y frontend).
+Mira [`XAMPP_SETUP.md`](XAMPP_SETUP.md) para la guia detallada.
 
 Resumen rapido:
 
 ```bash
-# 1) Clona el repo dentro de C:\xampp\htdocs
+# 1) Clonar dentro de htdocs
 cd C:\xampp\htdocs
-git clone https://github.com/Liset17/Interfaz-php.git
+git clone https://github.com/Liset17/Interfaz-php.git php-interfaz
 
-# 2) Importa backend/schema.sql desde phpMyAdmin
-#    (creando antes la BBDD academia_teatro)
+# 2) Crear la BBDD `academia_teatro` desde phpMyAdmin
+#    e importar schema.sql
 
-# 3) Arranca Apache + MySQL desde el XAMPP Control Panel
+# 3) Arrancar Apache + MySQL en XAMPP Control Panel
 
-# 4) En otra terminal:
-cd C:\xampp\htdocs\Interfaz-php\frontend
-npm install
-npm run dev
+# 4) Abrir en el navegador:
+#    http://localhost/php-interfaz/
 ```
 
-Luego abre <http://localhost:5173>, registra un profesor y entra al panel.
+Registra un profesor, entra al panel y listo.
 
-## Endpoints
+## Paginas disponibles
 
-| Metodo | URL | Descripcion |
-| --- | --- | --- |
-| POST   | `/api/auth/register.php` | Registro de profesor |
-| POST   | `/api/auth/login.php`    | Login (crea sesion PHP) |
-| POST   | `/api/auth/logout.php`   | Cierra sesion |
-| GET    | `/api/auth/me.php`       | Profesor logueado actual |
-| *      | `/api/alumnos.php`       | CRUD alumnos |
-| *      | `/api/grupos.php`        | CRUD grupos |
-| *      | `/api/clases.php`        | CRUD clases |
-| *      | `/api/asistencia.php`    | CRUD + upsert asistencia |
+| URL (relativa a `/php-interfaz/`) | Accion |
+| --- | --- |
+| `login.php`       | Iniciar sesion (POST self-submit) |
+| `register.php`    | Crear profesor + login automatico |
+| `logout.php`      | Cerrar sesion (solo POST) |
+| `home.php`        | Panel principal |
+| `alumnos.php`     | CRUD de alumnos |
+| `grupos.php`      | CRUD de grupos + buscador |
+| `clases.php`      | CRUD de clases |
+| `asistencia.php`  | Control de asistencia (upsert) |
 
-`*` = GET / POST / PUT / DELETE. Todos requieren sesion iniciada salvo
-`register` y `login`.
+Todas las paginas salvo `login.php` y `register.php` exigen sesion
+iniciada (redirigen a `login.php` si no la hay).
+
+## Decisiones tecnicas
+
+- **PHP puro**: cada pagina ejecuta su propia consulta PDO, sin API
+  intermedia. Los formularios usan `method="post"` tradicional y
+  siguen el patron **PRG** (Post / Redirect / Get) para que al
+  refrescar no se reenvien datos.
+- **XSS**: toda salida pasa por `e($valor)` (htmlspecialchars).
+- **Sesion**: `session_set_cookie_params` con `HttpOnly` y
+  `SameSite=Lax`. El flag `secure` se detecta automaticamente segun
+  HTTPS, asi funciona igual en XAMPP local y en produccion HTTPS.
+- **Flash messages**: mensajes breves tras crear/editar/borrar, se
+  guardan en `$_SESSION['flash']` y se muestran una vez.
+- **JavaScript**: solo el minimo (marcar todos los checkboxes de
+  asistencia y `onchange=submit()` en los filtros). No hay SPA.
 
 ## Autor
 
-Kevin Siabato. Proyecto FP - Valencia.
+Wilbelys Liset Ramirez. Proyecto FP - Valencia.
