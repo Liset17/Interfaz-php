@@ -1,0 +1,6 @@
+# Bloquea el acceso directo a los archivos de configuracion.
+# Estos .php se incluyen desde los endpoints; nadie deberia
+# pedirlos por HTTP. Si Apache los sirve por error, 403.
+<FilesMatch "\.(php|sql|env)$">
+    Require all denied
+</FilesMatch>

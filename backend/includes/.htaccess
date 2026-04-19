@@ -1,0 +1,4 @@
+# Igual que /config: los helpers no se exponen al exterior.
+<FilesMatch "\.php$">
+    Require all denied
+</FilesMatch>
